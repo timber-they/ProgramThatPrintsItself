@@ -1,0 +1,21 @@
+name: C CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: build
+      run: clang ProgramThatPrintsItself.c
+    - name: run
+      run: ./a.out > out
+    - name: validate
+      run: cmp -s out ProgramThatPrintsItself.c
